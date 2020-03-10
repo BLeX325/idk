@@ -1,4 +1,4 @@
-include <iostream> // пррграмма заменяет символ 1 в некотором слове на символ 2
+#include <iostream> // пррграмма заменяет символ 1 в некотором слове на символ 2
 #include <cstring>
 using namespace std;
 
