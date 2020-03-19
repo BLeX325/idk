@@ -1,0 +1,77 @@
+#include <iostream>
+#include <fstream>
+#include <iomanip>
+using namespace std;
+// открываем глобальные файловые потоки
+ifstream in("input.txt");
+ofstream out("output.txt");
+// описание структуры
+struct bibl
+{
+    int number, year;
+    char family[20], nazv[50];
+    void show(); // член-функция для вывода информации на экран
+    void print(); // член-функция для вывода информации в файл
+};
+
+void bibl::show()
+{
+    cout << setw(8) << number << setw(10) << family << setw(8) << nazv << setw(8) << year << endl;
+}
+void bibl::print()
+{
+    out << setw(8) << number << setw(10) << family << setw(8) << nazv << setw(8) << year << endl;
+}
+
+int main()
+{
+    bibl book[10]; // описываем массив структур
+    int num;
+    int i, j, n = 0;
+    if (!in)
+    {
+        cout << "Oshibka pri otkritii input.txt" << endl;
+    }
+    else
+    {
+        while (in.peek() != EOF) // чтение данных из файла пока не закончится
+        {
+            in >> book[n].number;
+            in >> book[n].family;
+            in >> book[n].nazv;
+            in >> book[n].year;
+            // вывод прочитанных данных на экран через член-функцию
+            book[n].show();
+            n++;
+        };
+        cout << "Vvedite nomer knigi kotoruy nuzhno ubrat" << endl;
+        cin >> num;
+        if (!out)
+        {
+            cout << "Oshibka pri otkritii output.txt";
+        }
+        else
+        {
+            j = 0;
+            for (i = 0; i < n && !j; i++)
+            // поиск структуры по совпадению поля
+            // number с num для удаления
+            if (book[i].number == num)
+            {
+                // выполняем сдвик в массиве на одну позицию вправо
+                for (j = i; j < n-1; j++)
+                {
+                    book[j] = book[j+1];
+                }
+                n--; // уменьшаем кол-во книг на 1 после удаления
+            }
+            // записываем результат в новый файл
+            for (i = 0; i < n; i++)
+                //вывод данных в файл через член-функцию структуры
+                book[i].print();
+        }
+    }
+    in.close();
+    out.close(); // закрываем потоки
+    return 0;
+}
