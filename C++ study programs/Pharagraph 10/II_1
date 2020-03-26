@@ -4,6 +4,8 @@
 using namespace std;
 // открываем глобальные файловые потоки
 ifstream in("input.txt");
+// в фалйе использую английский алфавит во избежание ошибок
+// т.к. С++ считает щирину поля в байтах, а при использовании кириллицы, некоторые буквы занимают более 1 байта памяти
 ofstream out("output.txt");
 // описание структуры
 struct bibl
@@ -16,11 +18,11 @@ struct bibl
 
 void bibl::show()
 {
-    cout << setw(8) << number << setw(10) << fam << setw(15) << name << setw(12) << secondname << setw(14) << adress << setw(10) << school << setw(8) << year << endl;
+    cout << setw(8) << number << setw(10) << fam << setw(15) << name << setw(13) << secondname << setw(14) << adress << setw(13) << school << setw(8) << year << endl;
 }
 void bibl::print()
 {
-    out << setw(8) << number << setw(10) << fam << setw(15) << name << setw(12) << secondname << setw(14) << adress << setw(10) << school << setw(8) << year << endl;
+    out << setw(8) << number << setw(10) << fam << setw(15) << name << setw(13) << secondname << setw(14) << adress << setw(13) << school << setw(8) << year << endl;
 }
 
 int main()
@@ -48,7 +50,7 @@ int main()
             n++;
         };
         cout << "Vvedite shkolu" << endl;
-        cin >> num;
+        getline(cin,num);
         if (!out)
         {
             cout << "Oshibka pri otkritii output.txt";
@@ -57,24 +59,40 @@ int main()
         {
             j = 0;
             for (i = 0; i < n; i++)
-            // поиск структуры по совпадению поля
-            if (book[i].school != num) //strcmp(a[1],a[0])==0
             {
-                // выполняем сдвик в массиве на одну позицию вправо
-                for (j = i; j < n-1; j++)
-                {
-                    book[j] = book[j+1];
-                    i--;
-                }
-                n--; // уменьшаем кол-во книг на 1 после удаления
+                // поиск структуры по совпадению поля
+                if (book[i].school != num)
+                    {
+                        // выполняем сдвиг в массиве на одну позицию вправо
+                        for (j = i; j < n-1; j++)
+                        {
+                            book[j] = book[j+1];
+                        }
+                        i--; // возвращяемся назад в цикле, для проверки элемента на который заменили предыдущий
+                        n--; // уменьшаем кол-во книг на 1 после удаления
+                    }
             }
-            // записываем результат в новый файл
             for (i = 0; i < n; i++)
+            {
                 //вывод данных в файл через член-функцию структуры
                 book[i].print();
+            }
         }
     }
     in.close();
     out.close(); // закрываем потоки
     return 0;
 }
+
+____________________________________________________________________________________________________
+input.txt :
+
+1 Ivanov Ivan Ivanovich Saratov 1-Gimnaziya 2001
+2 Semenov Ivan Pavlovich Marx 4-Schkola 2000
+3 Smirnov Alexander Maximovich St.Petersburg 443-Schkola 2001
+4 But Stepan Alexeevich Saratov 1-Gimnaziya 2001
+5 Klink Andrey Ivanovich Balakovo 7-Schkola 2000
+6 Gromov Sergey Petrovich Marx 4-Schkola 2001
+7 Nikitin Maxim Pavlovich Balakovo 7-Schkola 2000
+
+
