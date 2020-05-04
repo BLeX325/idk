@@ -1,0 +1,121 @@
+\documentclass[14pt]{article}
+\usepackage{ucs} 
+\usepackage[english,russian]{babel}
+\usepackage[T1]{fontenc}
+\usepackage[utf8x]{inputenc}
+\usepackage{fullpage}
+
+\usepackage{listings}
+\usepackage{color}
+
+\title{\textbf{\huge{Отчёт по дисциплине\\Языки и методы\\программирования}}}
+\author{Студента 1 курса\\Механико-Математического факальтет\\Саратовского государственного университета\\имени Н.Г.Чернышевского\\113 группы, направления\\Прикладная математика и информатика\\Алейникова В.А.}
+
+\definecolor{mygreen}{rgb}{0,0.6,0}
+\definecolor{mygray}{rgb}{0.5,0.5,0.5}
+\definecolor{mymauve}{rgb}{0.58,0,0.82}
+
+\lstset{ %
+  backgroundcolor=\color{white},   % choose the background color
+  basicstyle=\footnotesize,        % size of fonts used for the code
+  breaklines=true,                 % automatic line breaking only at whitespace
+  captionpos=b,                    % sets the caption-position to bottom
+  commentstyle=\color{mygreen},    % comment style
+  escapeinside={\%*}{*)},          % if you want to add LaTeX within your code
+  keywordstyle=\color{blue},       % keyword style
+  stringstyle=\color{mymauve},     % string literal style
+}
+
+\begin{document}
+
+\maketitle
+
+\section{Лабораторная работа}
+\begin{enumerate}
+
+\item Поиск максимума из трёх целых чисел
+
+\begin{lstlisting}[language=haskell]
+max3 :: Int -> Int -> Int -> Int
+max3 x y z = max (max x y) z
+\end{lstlisting}
+Т.к. нужно сравнить целые числа и вывести наибольшее на экран то тип данных каждого параментра будет Int. Чтобы найти максимум из 3-х, сначала найдём максимальное число из 2-х, а потом сравним его с 3-им числом
+
+\item Поиск минимума из трёх целых чисел
+
+\begin{lstlisting}[language=haskell]
+min3 :: Int -> Int -> Int -> Int
+min3 x y z = min (min x y) z
+\end{lstlisting}
+Как и в случае с поиском максимума из трёх, используем тип данных каждого параментра Int. Находим минимум из 2-х и сравниваем его с 3-м
+
+\item Сортировка 2-х чисел по убыванию
+\begin{lstlisting}[language=haskell]
+sort2 :: Int -> Int -> (Int,Int)
+sort2 x y = (max x y, min x y)
+\end{lstlisting}
+Тип данных каждого числа Int. Получам 2 отдельных значения, на выходе выдётся 2 последовательных значения вместе, отсортированных по убыванию, для этого на место первого значения поставим максимум из введённых значений, а на второе место минимум из них.
+
+\item Функция возвращает True если оба значения будут True
+
+\begin{lstlisting}[language=haskell]
+bothTrue :: Bool -> Bool -> Bool
+bothTrue True x = x
+bothTrue _ _ = False
+--bothTrue False False = False
+--bothTrue True False = False
+\end{lstlisting}
+Тип данных прнимаемых значений и результата работы функции Bool. Описаны 2 взаимоисключающих исхода возможных событий. Благодоря которым не обязательно прописывать все 4 возможных исхода. 
+
+\item Функция, которая по двум числам, представляющим собой коэффициенты линейного уравнения $ax + b = 0$, возвращает пару, первый элемент которой равен True, если решение существует и False в противном случае
+
+\begin{lstlisting}[language=haskell]
+solve2 :: Double -> Double -> (Bool,Double)
+solve2 0 b = (False, 0.0)
+solve2 a b = (True,b/a)
+\end{lstlisting}
+Типы принимаемых значений - Double, т.к. исполюзуется деление чисел друг на друга. Выдаём 2 значения, тип первого - Bool ( True или False ), а второе Double ( ответ, если решение есть, или же 0.0 в противном случае ).
+
+\item Функция, возвращающая True, если два отрезка, концы которых задаются в аргументах функции, параллельны(или лежат на одной прямой)
+
+\begin{lstlisting}[language=haskell]
+isParallel :: (Int,Int) -> (Int,Int) -> (Int,Int) -> (Int,Int) -> Bool
+isParallel (x1,y1) (x2,y2) (x3,y3) (x4,y4) = (y2-y1)*(x4-x3) == (x2-x1)*(y4-y3)
+\end{lstlisting}
+На входе получаем 4 пары чисел ( координаты концов отрезка ) все они типа Int, на выходе получаем True или False ( тип данных Bool ), если концы отрезков параллельны или не параллельны соответственно.
+
+\item Функция, аргументами которой служат парметры двух окружностей на плоскости(координаты центров и радиусы), которая возвращает True если вторая окружность целиком содержится внутри первой
+
+\begin{lstlisting}[language=haskell]
+isIncluded :: (Double, Double) -> Double -> (Double, Double) -> Double -> Bool
+isIncluded (x1,y1) r1 (x2,y2) r2 = sqrt ((x1-x2)^2 + (y1-y2)^2) <= r1-r2
+\end{lstlisting}
+На входе получаем 4 координаты центра окружности и 2 радиуса , на выходе выдаётся результат типа Bool. В вычислениях используем «sqrt» - извлечение квадратного корня.
+
+\item Функция, принимающая в качестве параметров координаты трех точек на плоскости, возвращающая True, если образуемый ими треугольник - прямоугольный 
+
+\begin{lstlisting}[language=haskell]
+isRectangular :: (Double, Double) -> (Double, Double) -> (Double, Double) -> Bool
+isRectangular (a,b) (c,d) (e,f) = if (c-a)*(e-a)+(d-b)*(f-b) == 0 || (a-c)*(e-c)+(b-d)*(f-d) == 0 || (a-e)*(c-e)+(b-f)*(d-f) == 0 then True else False
+\end{lstlisting}
+Принимаются координаты 3-х точек типа Double, выдаём True или False ( тип данных - Bool ). В вычислениях используем конструкцию «if ... then ... else ...», которая предпологает 2 исхода события и соответственно 2 разных действия с введёнными данными. Если выполняется условие после if, то выполняем действие после then, иначе, выполняем другое действие ( или выдаём какой-нибудь результат).
+
+\item Функция, определяющая можно ли из 3-х отрезков с заданными длинами построить треугольник
+
+Комментарий: третья сторона должна быть меньше суммы двух других сторон и больше их разности.
+\begin{lstlisting}[language=haskell]
+isTriangle :: Int -> Int -> Int -> Bool
+isTriangle x y z = if z<(x+y) && z>(x-y) || x<(z+y) && x>(z-y) || y<(z+x) && y>(z-x) then True else False
+\end{lstlisting}
+Принимаются значения длин отрезков типа Int, выдаётся True или False. Для получения ответа используются конструкции «if ... then ... else ...» , а также "&&" - логическое «и», || - логическое «или».
+
+\item Функция, принимающая на входе три числа и возвращающая True, если они упорядочены по возрастанию или по убыванию
+
+\begin{lstlisting}[language=haskell]
+isSorted :: Double -> Double -> Double -> Bool
+isSorted x y z = if (x>y && y>z) || (x<y && y<z) then True else False
+\end{lstlisting}
+Принимаем 3 числа типа Double и выдаём результат типа Bool. Используется конструкция «if ... then ... else ...», логическое «и» и логическое «или». 
+
+\end{enumerate}
+\end{document}
