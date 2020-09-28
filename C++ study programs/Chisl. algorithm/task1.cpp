@@ -43,8 +43,8 @@ int main() {
 		else { break;}
 	}
     cout << setprecision(10);
-	cout << "Summa ryada funkcii = " << sum << "\n";
-	cout << "Summa ryada proizvodnih ot funkcii = " << sum2 << endl;
-	cout << "Posledniy x = " << x << "\n" << "Posledniy y = " << y;
+	cout << "Сумма ряда функции = " << sum << "\n";
+	cout << "Сумма ряда производных от функции = " << sum2 << endl;
+	cout << "Последний x = " << x << "\n" << "Последний y = " << y;
 	return 0;
 }
