@@ -37,5 +37,6 @@ int main() {
     cout << setprecision(10);
 	cout << "Сумма ряда функции = " << sum << "\n";
 	cout << "Сумма ряда производных от функции = " << sum2 << endl;
+	cout << "Posledniy x = " << x << "\n" << "Posledniy y = " << y;
 	return 0;
 }
