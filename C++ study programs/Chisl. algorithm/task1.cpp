@@ -23,20 +23,28 @@ int main() {
 	double x = 1, y = x1;// ((-1)^0)/0! = 1 : первый член суммы
 	// первый член суммы производных функции = 0, поэтому я беру второй член, который всегда будет равен самому, введённому x
 	double sum = 1, sum2 = x1;// При любой точности сумма начинается с первого члена
-	for(int i = 1; abs(x) > E; i++)
+	for(int i = 1; ; i++)
 	{ // Цикл подсчета суммы пока член суммы по модулю больше точности
 		x = pow(x1,i*2)/fact(i*2); 
-		sum += x;
+		if (abs(x) > E)
+		{
+		    sum += x;
+		}
+		else { break;}
 	}
-	for(int i = 1; abs(y) > E; i++)
+	for(int i = 1; ; i++)
 	{ // Цикл подсчета суммы производных пока член суммы по модулю больше точности
 	    k = 2*i-1;
 		y = pow(x1,k)/fact(k);
-		sum2 += y;
+		if (abs(y) > E)
+		{
+		    sum2 += y;
+		}
+		else { break;}
 	}
     cout << setprecision(10);
-	cout << "Сумма ряда функции = " << sum << "\n";
-	cout << "Сумма ряда производных от функции = " << sum2 << endl;
+	cout << "Summa ryada funkcii = " << sum << "\n";
+	cout << "Summa ryada proizvodnih ot funkcii = " << sum2 << endl;
 	cout << "Posledniy x = " << x << "\n" << "Posledniy y = " << y;
 	return 0;
 }
