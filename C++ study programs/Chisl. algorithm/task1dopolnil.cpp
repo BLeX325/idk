@@ -38,7 +38,6 @@ int main() {
          if (abs(s)>E)
          {
              sum += x;
-             sum += pow(x1,(i+1)*2)/fact((i+1)*2);
          }
          else {break;}
 		}
@@ -58,15 +57,14 @@ int main() {
          s2 = y/1-q2;
          if (abs(s2)>E)
          {
-             sum2 += x;
-             sum2 += pow(x1,(i+1)*2)/fact((i+1)*2);
+             sum2 += y;
          }
          else {break;}
 		}
 	}
     cout << setprecision(10);
-	cout << "Сумма ряда функции = " << sum << "\n";
-	cout << "Сумма ряда производных от функции = " << sum2 << endl;
-	cout << "Последний x = " << x << "\n" << "Последний y = " << y;
+	cout << "Summa ryada funkcii = " << sum << "\n";
+	cout << "Summa ryada proizvodnih ot funkcii = " << sum2 << endl;
+	cout << "Posledniy x = " << x << "\n" << "Posledniy y = " << y;
 	return 0;
 }
