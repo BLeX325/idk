@@ -1,5 +1,7 @@
 #include <iostream>
+#include <cmath>
 using namespace std;
+
 double Interpol (double* x, double* F_x, int N, double t){
     double Sum = 0;
     for (int i = 0; i < N; i++){
@@ -23,13 +25,14 @@ double *y = new double [n];
 for (int i = 0; i < n; i++) {
     cout << "Vvedite x["<< i+1 <<"]:"<< endl;
     cin >> x [i];
-    cout << "Vvedite x["<< i+1 <<"]:"<< endl;
-    cin >> y [i];
+    // cout << "Vvedite x["<< i+1 <<"]:"<< endl;
+    //cin
+    y [i] = cosh(x[i]);
+    cout << "f(x)["<< i+1 <<"]:"<< y[i] << endl;
 }
 double x0;
 cout << "Vvedite x - neobhodimyu vicheslit:"<< endl;
 cin >> x0;
 cout << "Itog:" << endl << Interpol (x,y,n,x0);
-cin >> x0;
 return 0;
 }
