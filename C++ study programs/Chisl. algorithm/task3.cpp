@@ -23,14 +23,14 @@ double Int_Tr (double a, double b, int n)
     return Sum;
 }
 
-int Poisk (double eps = 1e-2)
+int Poisk (double eps = 0.01)
 {
     int n = 1;
-    for (; (1.0/(3*n*n*n)) > (eps / 2); n++){};
+    for (; (1.0/(3*n*n*n)) > (eps/2); n++){};
     return n;
 }
 
-double Runge (double a = 0, double n = 4, double eps = 1e-2)
+double Runge (double a = 0, double n = 4, double eps = 0.01)
 {
     double b = Poisk ();
     double rez = Int_Tr(a,b,n);
@@ -46,7 +46,7 @@ double Runge (double a = 0, double n = 4, double eps = 1e-2)
 
 int main(){
 int n;
-cout <<Poisk()<< endl<< Runge();
+cout << Poisk() << endl << Runge();
 cin >> n;
 return 0;
 }
