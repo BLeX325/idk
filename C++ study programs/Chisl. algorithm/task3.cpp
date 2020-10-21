@@ -18,7 +18,7 @@ double Int_Tr (double a, double b, int n)
     double Sum = 0;
     for (int i = 0; i < n; i++)
     {
-        Sum += Tr (a+i*h, h)
+        Sum += Tr (a+i*h, h);
     }
     return Sum;
 }
