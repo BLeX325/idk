@@ -1,50 +1,42 @@
 #include <iostream>
 #include <cmath>
 #include <iomanip>
-
 using namespace std;
- 
- long double fact(int N)
+
+double Interpol (double* x, double* F_x, int N, double t) // функция подсчёта интерполяционного многочлена Лагранжа
 {
-    if(N < 0) // если пользователь ввел отрицательное число
-        return 0; // возвращаем ноль
-    if (N == 0) // если пользователь ввел ноль,
-        return 1; // возвращаем факториал от нуля - не удивляетесь, но это 1 =)
-    else // Во всех остальных случаях
-        return N * fact(N - 1); // делаем рекурсию.
+    double Sum = 0; // переменная для подсчёта суммы произведений значений функции на базисный полином
+    for (int i = 0; i < N; i++) // цикл подсчёта инт. многочлена 
+    {
+        double P = 1; // Базисный полином
+        for (int j = 0; j < N; j++) // подсчёт базисного полинома
+        {
+            if (!(j == i)){ // если j не равно i то продолжаем умножение
+            P *= (t - x[j])/(x[i]-x[j]); // Базисный полином
+            }
+        }
+    Sum += (P* F_x[i]);
+    }
+return Sum;
 }
- 
-int main() {
-    setlocale(LC_ALL, "Russian"); // подключаем русский язык в консоли
-	double E = 0.001, x1;  // Точность
-	int k = 0; // переменная для удобного подсчёта степени и факториала производной
-	cout << "Vvedite x = "; // просим ввести x
-	cin >> x1; // считываем x
-	double x = 1, y = x1;// ((-1)^0)/0! = 1 : первый член суммы
-	// первый член суммы производных функции = 0, поэтому я беру второй член, который всегда будет равен самому, введённому x
-	double sum = 1, sum2 = x1;// При любой точности сумма начинается с первого члена
-	for(int i = 1; ; i++)
-	{ // Цикл подсчета суммы пока член суммы по модулю больше точности
-		x = pow(x1,i*2)/fact(i*2); 
-		if (abs(x) > E)
-		{
-		    sum += x;
-		}
-		else { break;}
-	}
-	for(int i = 1; ; i++)
-	{ // Цикл подсчета суммы производных пока член суммы по модулю больше точности
-	        k = 2*i-1;
-		y = pow(x1,k)/fact(k);
-		if (abs(y) > E)
-		{
-		    sum2 += y;
-		}
-		else { break;}
-	}
-    cout << setprecision(10);
-	cout << "Сумма ряда функции = " << sum << "\n";
-	cout << "Сумма ряда производных от функции = " << sum2 << endl;
-	cout << "Последний x = " << x << "\n" << "Последний y = " << y;
-	return 0;
+
+int main(){
+int n;
+cout << "Vvedite chislo tochek:";
+cin >> n;
+double *x = new double [n]; // переменная для x
+double *y = new double [n]; // переменная для значения функции от x
+for (int i = 0; i < n; i++)  // цикл ввода значений x
+{
+    cout << endl <<  "x["<< i+1 <<"]   = ";
+    cin >> x[i];
+    y [i] = cosh(x[i]);
+    cout << "f(x)["<< i+1 <<"]= "<< y[i] << endl;
+}
+cout << setprecision(10);
+double x0;
+cout << endl << "Vvedite x - neobhodimyu vicheslit:";
+cin >> x0;
+cout << endl << "Rezultat:" << endl << Interpol (x,y,n,x0);
+return 0;
 }
